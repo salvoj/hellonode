@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("salvoj/jenkinsjob")
+        app = docker.build("salvoj/jenkinsjob:base")
     }
 
 	/*
@@ -31,7 +31,7 @@ node {
 		 
 		withCredentials([usernamePassword( credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
 			docker.withRegistry('', 'docker-hub-credentials') {
-				sh "docker login -u ${USERNAME} -p ${PASSWORD}"
+				sh "docker login -u ${USERNAME} --password-stdin ${PASSWORD}"
 				app.push("${env.BUILD_NUMBER}")
 				app.push("latest")
 			}

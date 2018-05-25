@@ -31,8 +31,7 @@ node('chopdocker'){
 		 
 		withCredentials([usernamePassword( credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
 			docker.withRegistry('', 'docker-hub-credentials') {
-				sh 'export _DOCKER_REPO=${PASSWORD}'
-				sh "echo ${PASSWORD} login -u ${USERNAME} --password-stdin"  //use --password-stdin instead of -p
+				//sh "echo ${PASSWORD} login -u ${USERNAME} --password-stdin"  //use --password-stdin instead of -p
 				app.push("${env.BUILD_NUMBER}")
 				app.push("latest")
 			}

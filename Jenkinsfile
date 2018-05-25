@@ -1,4 +1,4 @@
-node('vm'){
+node('chopdocker'){
     def app
 
     stage('Clone repository') {

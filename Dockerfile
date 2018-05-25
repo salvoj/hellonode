@@ -1,5 +1,5 @@
 # use a node base image
-FROM nginx:7-alpine
+FROM nginx:alpine
 
 # set maintainer
 LABEL maintainer "test@test.com"

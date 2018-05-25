@@ -30,8 +30,9 @@ node('chopdocker'){
          * Pushing multiple tags is cheap, as all the layers are reused. */
 		 
 		withCredentials([usernamePassword( credentialsId: 'docker-hub-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+			export _DOCKER_REPO = "${PASSWORD}"
 			docker.withRegistry('', 'docker-hub-credentials') {
-				sh "docker login -u ${USERNAME} --password-stdin ${PASSWORD}"  //use --password-stdin instead of -p
+				sh "docker login -u ${USERNAME} --password-stdin $_DOCKER_REPO"  //use --password-stdin instead of -p
 				app.push("${env.BUILD_NUMBER}")
 				app.push("latest")
 			}
